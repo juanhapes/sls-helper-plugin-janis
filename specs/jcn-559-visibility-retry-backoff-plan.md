@@ -4,11 +4,11 @@
 
 Orden entre repos: plugin primero (el release del plugin va antes que `sqs-consumer`). Los batches de `sqs-consumer` no dependen del código del plugin.
 
-## Batch 1 — plugin: permiso `sqs:ChangeMessageVisibility` (`sls-helper-plugin-janis`)
+## Batch 1 ✅ (5af29c7) — plugin: permiso `sqs:ChangeMessageVisibility` (`sls-helper-plugin-janis`)
 
-- [ ] `lib/sqs-helper/index.js` — sumar `sqs:ChangeMessageVisibility` a `sqsPermissions`.
-- [ ] `tests/unit/hook-builder/sqs.js` (y cualquier otro test que asserte la lista) — actualizar.
-- [ ] `README.md` — los 3 bloques que listan los permisos.
+- [x] `lib/sqs-helper/index.js` — sumar `sqs:ChangeMessageVisibility` a `sqsPermissions`.
+- [x] `tests/unit/hook-builder/sqs.js` (y cualquier otro test que asserte la lista) — actualizar.
+- [x] `README.md` — los 3 bloques que listan los permisos.
 - Verifica: `npm run lint` + `npm test` verdes.
 
 ## Batch 2 — sqs-consumer: helper `lib/helpers/retry-backoff.js`
