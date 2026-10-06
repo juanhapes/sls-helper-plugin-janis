@@ -11,29 +11,30 @@ Orden entre repos: plugin primero (el release del plugin va antes que `sqs-consu
 - [x] `README.md` — los 3 bloques que listan los permisos.
 - Verifica: `npm run lint` + `npm test` verdes.
 
-## Batch 2 — sqs-consumer: helper `lib/helpers/retry-backoff.js`
+## Batch 2 ✅ (915d653) — sqs-consumer: helper `lib/helpers/retry-backoff.js`
 
 Depende de: nada.
 
-- [ ] Dependencia `@aws-sdk/client-sqs` (`package.json` + lock).
-- [ ] Normalización/validación de config (defaults 60/900/0.2; inválida → `null` + motivo).
-- [ ] `getAttempt(record)`, `getRetryDelaySeconds(attempt, config, minDelaySeconds)`.
-- [ ] Queue URL desde ARN, detección FIFO, chunking de a 10 por cola, `ChangeMessageVisibilityBatch` en paralelo, cliente por región con X-Ray.
-- [ ] Clasificación de fallos: entry `Failed`, error de llamada, `AccessDenied`/`AccessDeniedException`.
-- [ ] `tests/helpers/retry-backoff.js`.
+- [x] Dependencia `@aws-sdk/client-sqs` (`package.json` + lock).
+- [x] Normalización/validación de config (defaults 60/900/0.2; inválida → `null` + motivo).
+- [x] `getAttempt(record)`, `getRetryDelaySeconds(attempt, config, minDelaySeconds)`.
+- [x] Queue URL desde ARN, detección FIFO, chunking de a 10 por cola, `ChangeMessageVisibilityBatch` en paralelo, cliente por región con X-Ray.
+- [x] Clasificación de fallos: entry `Failed`, error de llamada, `AccessDenied`/`AccessDeniedException`.
+- [x] `tests/helpers/retry-backoff.js`.
 - Verifica: lint + tests, coverage del helper 100 %.
 
-## Batch 3 — sqs-consumer: integración en el handler + docs
+## Batch 3 ✅ (f6ccf19) — sqs-consumer: integración en el handler + docs
 
 Depende de: Batch 2.
 
-- [ ] `lib/sqs-consumer.js` y `lib/sqs-handler.js` — `addFailedMessage(messageId, { minDelaySeconds })`; `minDelaySeconds` por `messageId` (gana el último).
-- [ ] `lib/sqs-handler.js` — leer el getter; aplicar al final de `handle()` solo sobre failed, solo si no tiró; estado por container (AccessDenied → deshabilitado, FIFO → warn una vez, config inválida → error una vez); log de resumen.
-- [ ] `tests/sqs-handler.js` — criterios de aceptación del spec.
-- [ ] `README.md` — getter, `minDelaySeconds`, permiso y versión mínima del plugin.
-- [ ] `types/` — `npm run build-types`.
+- [x] `lib/sqs-consumer.js` y `lib/sqs-handler.js` — `addFailedMessage(messageId, { minDelaySeconds })`; `minDelaySeconds` por `messageId` (gana el último).
+- [x] `lib/sqs-handler.js` — leer el getter; aplicar al final de `handle()` solo sobre failed, solo si no tiró; estado por container (AccessDenied → deshabilitado, FIFO → warn una vez, config inválida → error una vez); log de resumen.
+- [x] `tests/sqs-handler.js` — criterios de aceptación del spec.
+- [x] `README.md` — getter, `minDelaySeconds`, permiso y versión mínima del plugin.
+- [x] `types/` — `npm run build-types` (está en `.gitignore`: se genera en el publish, no se commitea).
 - Verifica: lint + suite completa + coverage sin bajar.
 
 ## Pendiente de release
 
 - Versión mínima del plugin en el mensaje de error y en el README: placeholder `11.6.0` (minor sobre 11.5.1). Confirmar al releasear el plugin (JCN-557 puede salir antes).
+- `MIN_PLUGIN_VERSION` vive en `lib/sqs-handler.js`, `README.md` y el texto esperado de `tests/sqs-handler.js`.
